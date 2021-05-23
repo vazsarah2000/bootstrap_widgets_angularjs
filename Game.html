@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Lucky Draw Card</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  
+<style>
+  .card-flip > div {
+  backface-visibility: hidden; /*The back face of an element is a mirror image of the front face being displayed*/
+  transition: transform 300ms;
+  transition-timing-function: linear; /* linear - specifies a transition effect with the same speed from start to end*/
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+}
+
+.card-front {
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0;
+}
+
+.card-flip:hover .card-front {
+  transform: rotateY(-180deg);
+}
+  
+.card-flip:hover .card-back {
+  transform: rotateY(0deg);
+}
+.card-text{
+  font-size: 50px;
+  position: relative;
+  top:100px;
+} 
+.card-text1{
+  font-size: 50px;
+}
+.card{
+
+  height:400px;
+}
+</style>
+<script>
+  angular.module('myApp',[]).controller('myCtrl',function($scope){
+
+          
+       $scope.random_value_1 = Math.floor(Math.random() * 2); //Lucky number that you get
+       $scope.random_value_2 = Math.floor(Math.random() * 2); //Number which is matched with lucky number  to determine victory
+                                                            
+       if($scope.random_value_1==$scope.random_value_2)
+       {
+         $scope.msg="Congrats,Its a match! You Won";
+       }
+       else
+       {
+         $scope.msg="Sorry!Better Luck next time";
+       }
+
+  });
+</script>
+</head>
+<body> 
+ 
+<div class="container" ng-app="myApp" ng-controller="myCtrl">
+  <h1>LuckyDraw Card Game</h1>
+  <div class="row">
+      <div class="col-sm-4">
+          <div class="card card-flip">
+              <div class="card-front">
+                <div class="card bg-primary">
+                  <div class="card-body text-center">
+                    <br><br>
+                    <p class="card-text">Flip me First !</p>
+                  </div>
+                </div> 
+              </div>
+              <div class="card-back bg-white">
+                  <div class="card-body">
+                    <p class="card-text">Your lucky  number is : {{random_value_1}}</p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="card card-flip">
+            <div class="card-front">
+              <div class="card bg-warning">
+                <div class="card-body text-center">
+                  <br><br>
+                  <p class="card-text">Matched ? Flip To find</p>
+                </div>
+              </div> 
+            </div>
+            <div class="card-back bg-white">
+                <div class="card-body">
+                    <p class="card-text1">The number is : {{random_value_2}}</p>
+                    <p class="card-text1">{{msg}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
